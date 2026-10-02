@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pausa — Fasting Tracker & Dashboard</title>
+  <meta name="description" content="Pausa is a simple, intuitive intermittent fasting tracker designed to help you build lasting, mindful fasting habits.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="6" y="5" width="4" height="14" rx="2" fill="white"/>
+              <rect x="14" y="5" width="4" height="14" rx="2" fill="white"/>
+            </svg>
+          </div>
+          <span class="brand-name">pausa</span>
+        </div>
+
+        <nav class="nav-menu">
+          <button class="nav-item active" id="nav-dashboard" data-screen="dashboard">
+            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+              <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+              <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+              <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            </svg>
+            <span>Dashboard</span>
+          </button>
+
+          <button class="nav-item" id="nav-plans" data-screen="plans">
+            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="21" x2="4" y2="14"></line>
+              <line x1="4" y1="10" x2="4" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="3"></line>
+              <line x1="20" y1="21" x2="20" y2="16"></line>
+              <line x1="20" y1="12" x2="20" y2="3"></line>
+              <line x1="1" y1="14" x2="7" y2="14"></line>
+              <line x1="9" y1="8" x2="15" y2="8"></line>
+              <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+            <span>Fasting plans</span>
+          </button>
+
+          <button class="nav-item" id="nav-progress" data-screen="progress">
+            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>Progress</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip-card">
+          <div class="tip-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+            </svg>
+          </div>
+          <div class="tip-title">Small steps. Lasting habits.</div>
+          <div class="tip-desc">Find a rhythm that feels good for you.</div>
+        </div>
+
+        <button class="help-link" id="help-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span>Help & resources</span>
+        </button>
+
+        <div class="user-profile">
+          <div class="avatar">JL</div>
+          <div class="user-info">
+            <div class="user-name">Jamie Lee</div>
+            <div class="user-role">Personal account</div>
+          </div>
+          <div class="user-selector">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="7 15 12 20 17 15"></polyline>
+              <polyline points="7 9 12 4 17 9"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <!-- Top Navigation Header Bar -->
+      <header class="top-header">
+        <div class="breadcrumbs" id="breadcrumb-title">Dashboard</div>
+        <div class="header-right">
+          <span class="header-date" id="current-date-display">Friday, October 2</span>
+          <button class="notification-btn" aria-label="Notifications" title="Notifications">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-dot"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- SCREEN 1: DASHBOARD -->
+      <section class="screen active" id="screen-dashboard">
+        <div class="screen-header">
+          <div>
+            <h1 class="screen-title">Good morning, Jamie</h1>
+            <p class="screen-subtitle">A little consistency goes a long way. You're doing great.</p>
+          </div>
+          <button class="plan-pill-btn" id="dashboard-plan-btn" title="Change plan">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="21" x2="4" y2="14"></line>
+              <line x1="4" y1="10" x2="4" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="3"></line>
+              <line x1="20" y1="21" x2="20" y2="16"></line>
+              <line x1="20" y1="12" x2="20" y2="3"></line>
+              <line x1="1" y1="14" x2="7" y2="14"></line>
+              <line x1="9" y1="8" x2="15" y2="8"></line>
+              <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+            <span id="active-plan-badge-text">16:8 plan</span>
+          </button>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Left Column: Current Fast Card -->
+          <div class="card current-fast-card">
+            <div class="card-header-row">
+              <h2 class="card-title">Your current fast</h2>
+              <span class="status-badge" id="fast-status-badge">
+                <span class="status-badge-dot"></span>
+                <span id="fast-status-text">Fasting in progress</span>
+              </span>
+            </div>
+
+            <!-- Fasting Ring Container -->
+            <div class="timer-visual-container">
+              <div class="ring-wrapper">
+                <svg class="progress-ring-svg" width="220" height="220" viewBox="0 0 220 220">
+                  <circle class="progress-ring-bg" cx="110" cy="110" r="94" stroke-width="12" fill="transparent" />
+                  <circle class="progress-ring-circle" id="fast-ring-circle" cx="110" cy="110" r="94" stroke-width="12" fill="transparent" stroke-dasharray="590.62" stroke-dashoffset="130" stroke-linecap="round" />
+                </svg>
+                <div class="ring-content">
+                  <span class="ring-caption">TIME FASTED</span>
+                  <span class="ring-timer" id="timer-display">12:36:08</span>
+                  <span class="ring-goal-text" id="timer-goal-text">of your 16-hour goal</span>
+                  <span class="ring-remaining-pill" id="timer-remaining-pill">3h 24m to go</span>
+                </div>
+              </div>
+              <p class="ring-motivational-quote">One moment at a time. You've got this.</p>
+            </div>
+
+            <!-- Time Details Bar -->
+            <div class="time-schedule-bar">
+              <div class="schedule-col">
+                <span class="schedule-label" id="start-time-day-label">Started yesterday</span>
+                <span class="schedule-time" id="start-time-display">8:00 PM</span>
+              </div>
+              <div class="schedule-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+              <div class="schedule-col text-right">
+                <span class="schedule-label" id="goal-time-day-label">Goal ends today</span>
+                <span class="schedule-time" id="goal-time-display">12:00 PM</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="card-actions">
+              <button class="btn btn-primary" id="toggle-fast-btn">End fast</button>
+              <button class="btn btn-outline" id="edit-start-time-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                <span>Edit start time</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: Rhythm & Hydrate Cards -->
+          <div class="dashboard-side-col">
+            <!-- Today's Rhythm Card -->
+            <div class="card rhythm-card">
+              <div class="card-header-row">
+                <h2 class="card-title">Today's rhythm</h2>
+                <div class="rhythm-icon" title="Sun">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="rhythm-items-list">
+                <div class="rhythm-row">
+                  <div class="rhythm-badge-icon purple-bg">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                  </div>
+                  <div class="rhythm-info">
+                    <div class="rhythm-title">Fasting window</div>
+                    <div class="rhythm-details" id="rhythm-fasting-details">8:00 PM – 12:00 PM · 16 hours</div>
+                  </div>
+                </div>
+
+                <div class="rhythm-row">
+                  <div class="rhythm-badge-icon gray-bg">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"></path>
+                      <path d="M15 11v11"></path>
+                      <path d="M6 2v20"></path>
+                      <path d="M6 7h4"></path>
+                    </svg>
+                  </div>
+                  <div class="rhythm-info">
+                    <div class="rhythm-title">Eating window</div>
+                    <div class="rhythm-details" id="rhythm-eating-details">12:00 PM – 8:00 PM · 8 hours</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rhythm-notification-box" id="rhythm-footer-msg">
+                Your eating window opens in 3h 24m.
+              </div>
+            </div>
+
+            <!-- Hydration Reminder Card -->
+            <div class="card hydrate-card">
+              <div class="hydrate-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                </svg>
+              </div>
+              <h3 class="hydrate-title">A gentle reminder to hydrate</h3>
+              <p class="hydrate-desc">Water, plain tea, or black coffee can help you stay comfortable during your fast.</p>
+              <div class="hydrate-tag">A LITTLE CARE GOES A LONG WAY</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Week Progress Card -->
+        <div class="card week-progress-card">
+          <div class="week-header-row">
+            <div class="week-title-wrap">
+              <span class="flame-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"></path>
+                </svg>
+              </span>
+              <span class="week-heading">Your week so far</span>
+              <span class="week-subheading" id="week-streak-summary">4 completed fasts · 4-day streak</span>
+            </div>
+            <button class="text-link-btn" id="week-view-progress-btn">
+              <span>View progress</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <div class="week-days-row" id="dashboard-week-days">
+            <div class="day-chip completed">
+              <span class="day-name">Mon</span>
+              <span class="day-status-icon">✓</span>
+            </div>
+            <div class="day-chip completed">
+              <span class="day-name">Tue</span>
+              <span class="day-status-icon">✓</span>
+            </div>
+            <div class="day-chip completed">
+              <span class="day-name">Wed</span>
+              <span class="day-status-icon">✓</span>
+            </div>
+            <div class="day-chip completed">
+              <span class="day-name">Thu</span>
+              <span class="day-status-icon">✓</span>
+            </div>
+            <div class="day-chip active-day">
+              <span class="day-name">Fri</span>
+              <span class="day-status-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </span>
+            </div>
+            <div class="day-chip upcoming">
+              <span class="day-name">Sat</span>
+              <span class="day-status-icon">—</span>
+            </div>
+            <div class="day-chip upcoming">
+              <span class="day-name">Sun</span>
+              <span class="day-status-icon">—</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="dashboard-footer-note">Listen to your body. You can end a fast whenever you need to.</p>
+      </section>
+
+      <!-- SCREEN 2: FASTING PLAN SELECTION -->
+      <section class="screen" id="screen-plans">
+        <div class="screen-header">
+          <div>
+            <h1 class="screen-title">Find your fasting rhythm</h1>
+            <p class="screen-subtitle">Choose a plan that fits your life. You can change it anytime.</p>
+          </div>
+        </div>
+
+        <!-- 3 Plan Cards -->
+        <div class="plans-grid">
+          <!-- Plan Card 1: 12:12 -->
+          <div class="plan-card" data-plan="12:12">
+            <div class="plan-card-header">
+              <span class="plan-badge">BEGINNER FRIENDLY</span>
+              <span class="plan-radio"></span>
+            </div>
+            <div class="plan-ratio">12:12</div>
+            <h2 class="plan-title">Ease into fasting</h2>
+            <p class="plan-description">A gentle overnight fast to build a habit at your own pace.</p>
+            
+            <div class="plan-ratio-bar">
+              <div class="bar-fast" style="width: 50%;"></div>
+              <div class="bar-eat" style="width: 50%;"></div>
+            </div>
+
+            <div class="plan-ratio-legend">
+              <span class="legend-fast">12h fasting</span>
+              <span class="legend-eat">12h eating</span>
+            </div>
+
+            <div class="plan-schedule-time">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>8:00 PM – 8:00 AM</span>
+            </div>
+
+            <button class="btn btn-plan-select" data-select-plan="12:12">Select plan</button>
+          </div>
+
+          <!-- Plan Card 2: 14:10 -->
+          <div class="plan-card" data-plan="14:10">
+            <div class="plan-card-header">
+              <span class="plan-badge">A LITTLE MORE STRUCTURE</span>
+              <span class="plan-radio"></span>
+            </div>
+            <div class="plan-ratio">14:10</div>
+            <h2 class="plan-title">Find your balance</h2>
+            <p class="plan-description">A balanced rhythm with a little extra time between meals.</p>
+            
+            <div class="plan-ratio-bar">
+              <div class="bar-fast" style="width: 58.3%;"></div>
+              <div class="bar-eat" style="width: 41.7%;"></div>
+            </div>
+
+            <div class="plan-ratio-legend">
+              <span class="legend-fast">14h fasting</span>
+              <span class="legend-eat">10h eating</span>
+            </div>
+
+            <div class="plan-schedule-time">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>8:00 PM – 10:00 AM</span>
+            </div>
+
+            <button class="btn btn-plan-select" data-select-plan="14:10">Select plan</button>
+          </div>
+
+          <!-- Plan Card 3: 16:8 (Active) -->
+          <div class="plan-card current-selected" data-plan="16:8">
+            <div class="plan-card-header">
+              <span class="plan-badge current">YOUR CURRENT PLAN</span>
+              <span class="plan-radio current"></span>
+            </div>
+            <div class="plan-ratio purple-highlight">16:8</div>
+            <h2 class="plan-title">Keep a steady rhythm</h2>
+            <p class="plan-description">A focused fasting window with room for your daily meals.</p>
+            
+            <div class="plan-ratio-bar">
+              <div class="bar-fast" style="width: 66.6%;"></div>
+              <div class="bar-eat" style="width: 33.4%;"></div>
+            </div>
+
+            <div class="plan-ratio-legend">
+              <span class="legend-fast">16h fasting</span>
+              <span class="legend-eat">8h eating</span>
+            </div>
+
+            <div class="plan-schedule-time">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>8:00 PM – 12:00 PM</span>
+            </div>
+
+            <button class="btn btn-plan-select selected" data-select-plan="16:8">
+              <span>✓ Current plan</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Lower Section: Daily Schedule & Guide -->
+        <div class="plans-bottom-grid">
+          <!-- Daily Schedule Card -->
+          <div class="card schedule-timeline-card">
+            <div class="schedule-timeline-header">
+              <div>
+                <h2 class="card-title">Your daily schedule</h2>
+                <div class="card-subtitle-small" id="plan-schedule-repeat-text">16:8 plan · Repeats every day</div>
+              </div>
+              <button class="btn btn-outline" id="edit-schedule-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                <span>Edit schedule</span>
+              </button>
+            </div>
+
+            <!-- 24-hour visual bar -->
+            <div class="timeline-visual-wrap">
+              <div class="timeline-ticks">
+                <span>12 AM</span>
+                <span>6 AM</span>
+                <span>12 PM</span>
+                <span>6 PM</span>
+                <span>12 AM</span>
+              </div>
+              <div class="timeline-24h-bar" id="timeline-24h-bar">
+                <div class="timeline-seg fast" style="flex: 12;">Fasting</div>
+                <div class="timeline-seg eat" style="flex: 8;">Eating</div>
+                <div class="timeline-seg fast" style="flex: 4;"></div>
+              </div>
+              <div class="timeline-legend">
+                <span class="legend-item" id="timeline-legend-fast">
+                  <span class="legend-dot purple-dot"></span>
+                  <span id="timeline-fast-text">Fast: 8:00 PM – 12:00 PM</span>
+                </span>
+                <span class="legend-item" id="timeline-legend-eat">
+                  <span class="legend-dot light-dot"></span>
+                  <span id="timeline-eat-text">Eat: 12:00 PM – 8:00 PM</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Guide Callout Card -->
+          <div class="card guide-callout-card">
+            <div class="guide-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a5 5 0 0 0-5 5v1a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5Z"></path>
+                <path d="M12 12v10"></path>
+                <path d="M12 17a4 4 0 0 0 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="guide-title">Start small. Build gently.</h3>
+            <p class="guide-desc">New to fasting? Start with 12:12 and give yourself time to adjust. The best plan is one that feels sustainable.</p>
+            <a href="#plans" class="guide-link" id="read-guide-btn">
+              <span>Read the beginner's guide</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="health-disclaimer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <p>Your wellbeing comes first. Fasting isn't right for everyone. If you're pregnant, have a history of disordered eating, or manage a medical condition, speak with a healthcare professional before starting.</p>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: PROGRESS & HISTORY -->
+      <section class="screen" id="screen-progress">
+        <div class="screen-header">
+          <div>
+            <h1 class="screen-title">Small steps, real progress</h1>
+            <p class="screen-subtitle">A look at the habits you've been building, one day at a time.</p>
+          </div>
+          <div class="dropdown-wrapper">
+            <button class="btn btn-dropdown" id="timeframe-select-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+              <span>Last 30 days</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3 Metric Cards -->
+        <div class="metrics-grid">
+          <div class="card metric-card">
+            <div class="metric-top">
+              <span class="metric-label">Completed fasts</span>
+              <span class="metric-icon purple-tint">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </span>
+            </div>
+            <div class="metric-number" id="metric-completed-count">18</div>
+            <div class="metric-footer" id="metric-completed-subtext">In the last 30 days</div>
+          </div>
+
+          <div class="card metric-card">
+            <div class="metric-top">
+              <span class="metric-label">Average fasting time</span>
+              <span class="metric-icon purple-tint">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </span>
+            </div>
+            <div class="metric-number" id="metric-avg-time">15h 42m</div>
+            <div class="metric-footer">A rhythm that works for you</div>
+          </div>
+
+          <div class="card metric-card">
+            <div class="metric-top">
+              <span class="metric-label">Current streak</span>
+              <span class="metric-icon purple-tint">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="metric-number" id="metric-streak-count">4 days</div>
+            <div class="metric-footer" id="metric-longest-streak">Your longest streak is 7 days</div>
+          </div>
+        </div>
+
+        <!-- Weekly Fasting Bar Chart Card -->
+        <div class="card chart-card">
+          <div class="chart-header">
+            <div>
+              <h2 class="card-title">Your fasting week</h2>
+              <div class="card-subtitle-small">September 28 – October 4, 2026</div>
+            </div>
+            <div class="chart-week-nav">
+              <button class="btn-arrow-icon" id="prev-week-btn" aria-label="Previous week">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <span class="week-nav-label">This week</span>
+              <button class="btn-arrow-icon" id="next-week-btn" aria-label="Next week">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="barchart-container">
+            <div class="barchart-y-axis">
+              <span>20h</span>
+              <span>10h</span>
+              <span>0h</span>
+            </div>
+            <div class="barchart-plot-area">
+              <div class="chart-gridline" style="bottom: 100%;"></div>
+              <div class="chart-gridline" style="bottom: 50%;"></div>
+              <div class="chart-gridline" style="bottom: 0%;"></div>
+
+              <div class="chart-bars-row" id="chart-bars-row">
+                <!-- Bars will be populated via JS / match mockup -->
+                <div class="chart-col">
+                  <div class="bar-slot">
+                    <div class="bar-fill completed" style="height: 80%;" title="Mon 28: 16h 12m"></div>
+                  </div>
+                  <span class="bar-label">Mon 28</span>
+                </div>
+                <div class="chart-col">
+                  <div class="bar-slot">
+                    <div class="bar-fill completed" style="height: 70%;" title="Tue 29: 14h 05m"></div>
+                  </div>
+                  <span class="bar-label">Tue 29</span>
+                </div>
+                <div class="chart-col">
+                  <div class="bar-slot">
+                    <div class="bar-fill completed" style="height: 81%;" title="Wed 30: 16h 08m"></div>
+                  </div>
+                  <span class="bar-label">Wed 30</span>
+                </div>
+                <div class="chart-col">
+                  <div class="bar-slot">
+                    <div class="bar-fill completed" style="height: 82.5%;" title="Thu 1: 16h 32m"></div>
+                  </div>
+                  <span class="bar-label">Thu 1</span>
+                </div>
+                <div class="chart-col">
+                  <div class="bar-slot">
+                    <div class="bar-fill in-progress" style="height: 63%;" title="Fri 2 (In progress): 12h 36m"></div>
+                  </div>
+                  <span class="bar-label active-day-label">Fri 2</span>
+                </div>
+                <div class="chart-col">
+                  <div class="bar-slot">
+                    <div class="bar-fill empty" style="height: 2px;"></div>
+                  </div>
+                  <span class="bar-label">Sat 3</span>
+                </div>
+                <div class="chart-col">
+                  <div class="bar-slot">
+                    <div class="bar-fill empty" style="height: 2px;"></div>
+                  </div>
+                  <span class="bar-label">Sun 4</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-footer">
+            <div class="chart-legend">
+              <span class="legend-item">
+                <span class="legend-dot purple-dot"></span>
+                <span>Completed</span>
+              </span>
+              <span class="legend-item">
+                <span class="legend-dot in-progress-dot"></span>
+                <span>In progress</span>
+              </span>
+            </div>
+            <div class="chart-goal-target" id="chart-daily-goal-text">Daily goal: 16 hours</div>
+          </div>
+        </div>
+
+        <!-- Fasting History Table Card -->
+        <div class="card history-card">
+          <div class="history-header">
+            <div class="history-title-wrap">
+              <h2 class="card-title">Fasting history</h2>
+              <span class="history-count" id="history-total-sessions">18 sessions</span>
+            </div>
+            <button class="btn btn-outline" id="export-history-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export</span>
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>DATE</th>
+                  <th>START</th>
+                  <th>END</th>
+                  <th>DURATION</th>
+                  <th>PLAN</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <!-- Rows injected dynamically by script.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="history-pagination">
+            <span class="pagination-info" id="pagination-info-text">Showing 1–4 of 18 sessions</span>
+            <div class="pagination-controls">
+              <button class="btn-arrow-icon" id="prev-page-btn" aria-label="Previous page">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <span class="page-current" id="pagination-page-text">Page 1 of 5</span>
+              <button class="btn-arrow-icon" id="next-page-btn" aria-label="Next page">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal for Editing Start Time / Schedule -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Edit start time</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label class="modal-label" for="modal-time-input">Select fast start time</label>
+        <input type="datetime-local" class="modal-input" id="modal-time-input">
+        <p class="modal-hint" id="modal-hint">Updating the start time recalculates your current duration and target completion time.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" id="modal-save-btn">Save changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Beginners Guide -->
+  <div class="modal-overlay" id="guide-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Beginner's Guide to Fasting</h3>
+        <button class="modal-close" id="guide-modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 12px; line-height: 1.5; color: #475467;">
+          Intermittent fasting is an eating pattern where you cycle between periods of eating and fasting. Here are simple tips to begin:
+        </p>
+        <ul style="padding-left: 20px; line-height: 1.6; color: #475467; font-size: 14px;">
+          <li><strong>Start with 12:12:</strong> Most of your fast happens while you sleep!</li>
+          <li><strong>Stay hydrated:</strong> Water, sparkling water, herbal tea, or black coffee won't break your fast.</li>
+          <li><strong>Listen to your body:</strong> If you ever feel unwell or overly fatigued, end your fast. Consistency matters more than perfection.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="guide-modal-ok">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
